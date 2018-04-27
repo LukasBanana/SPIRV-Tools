@@ -29,10 +29,7 @@ using std::string;
 
 using ValidateTypeUnique = spvtest::ValidateBase<bool>;
 
-// TODO(atgoo@github) Error logging temporarily disabled because it's failing
-// vulkancts tests. See https://github.com/KhronosGroup/SPIRV-Tools/issues/559
-// const spv_result_t kDuplicateTypeError = SPV_ERROR_INVALID_DATA;
-const spv_result_t kDuplicateTypeError = SPV_SUCCESS;
+const spv_result_t kDuplicateTypeError = SPV_ERROR_INVALID_DATA;
 
 const string& GetHeader() {
   static const string header = R"(
@@ -94,8 +91,8 @@ OpFunctionEnd
 // Returns expected error string if |opcode| produces a duplicate type
 // declaration.
 string GetErrorString(SpvOp opcode) {
-  return "Duplicate non-aggregate type declarations are not allowed. Opcode: "
-      + std::string(spvOpcodeString(opcode));
+  return "Duplicate non-aggregate type declarations are not allowed. Opcode: " +
+         std::string(spvOpcodeString(opcode));
 }
 
 TEST_F(ValidateTypeUnique, success) {
